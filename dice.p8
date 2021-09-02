@@ -1,36 +1,51 @@
 pico-8 cartridge // http://www.pico-8.com
 version 32
 __lua__
-t={}
-
 function print_roll(t)
-	l=0
-	for v in all(t) do print(v) l+=v end
-	print("total:")
-	print("\f2")
-	print(l)
-	if(#t>=16) then print("reset total from pause menu") end
+	l=0 o=4 i=1
+	for te in all(t) do
+		for v in all(te) do
+			print(v.." out of "..o, i) 
+			l+=v 
+		end
+		o+=2
+		i+=1
+		if (o>12) o=20
+	end
+	print("total:"..l, 9)
+end
+
+function init_t()
+	t={{}}
+	for x=1,6 do add(t, {}) end
 end
 
 function _init()
+	init_t()
 	poke(0x5f2d, 0x1)
-	menuitem(1, "reset total", function() t={} end)
+	menuitem(1, "reset total", init_t)
 end
 
 function _update()
-	k=stat(31)
-	n=0
-	
-	if(#t<16) then
-		if(k=="1") then n=flr(rnd(4))+1 add(t,n) end
-		if(k=="2") then n=flr(rnd(6))+1 add(t,n) end
-		if(k=="3") then n=flr(rnd(8))+1 add(t,n)  end
+	k=stat(31) n=0 tt=false
+	tc=#t[1]+#t[2]+#t[3]+#t[4]+#t[5]+#t[6]
+	if(tc<16) then
+		-- can make this similar to the top loop
+		if (k=="1") n=flr(rnd(4))+1 add(t[1],n)
+		if (k=="2") n=flr(rnd(6))+1 add(t[2],n)
+		if (k=="3") n=flr(rnd(8))+1 add(t[3],n)
+		if (k=="4") n=flr(rnd(10))+1 add(t[4],n)
+		if (k=="5") n=flr(rnd(12))+1 add(t[5],n)
+		if (k=="6") n=flr(rnd(20))+1 add(t[6],n)
+	else
+		tt=true
 	end
 end
 
 function _draw()
-	cls(1)
+	cls(12)
 	print_roll(t)
+	if (tt==true) print("reset total from pause menu", 9)
 end
 __gfx__
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
