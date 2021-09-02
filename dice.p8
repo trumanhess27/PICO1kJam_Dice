@@ -5,14 +5,14 @@ function print_roll(t)
 	l=0 o=4 i=1
 	for te in all(t) do
 		for v in all(te) do
-			print(v.." out of "..o, i) 
+			?v.." out of "..o,i 
 			l+=v 
 		end
 		o+=2
 		i+=1
 		if (o>12) o=20
 	end
-	print("total:"..l, 9)
+	?"total:"..l,9
 end
 
 function init_t()
@@ -45,7 +45,7 @@ end
 function _draw()
 	cls(12)
 	print_roll(t)
-	if (tt==true) print("reset total from pause menu", 9)
+	if (tt==true) print("reset total from pause menu",9)
 end
 __gfx__
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
