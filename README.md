@@ -16,6 +16,7 @@ Some screengrabs and a GIF:
 
 Here is the code in full:
 `p=print h=rectfill v=add z=btnp sx=10sy=24r=1a=-9
+
 function p_r(t)
 l=0y=15
 for i=1,#t do
